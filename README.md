@@ -1,5 +1,4 @@
 # tecweb
-Almacenamiento para entregas de prácticas y proyectos
 
 ###**Matricula:**###
 
@@ -17,4 +16,6 @@ Almacenamiento para entregas de prácticas y proyectos
 
 > Otoño 2025
 
+###**Descripción:**###
 
+> El propósito de este repositorio es almacenar prácticas y proyectos del curso de Desarrollo de Aplicaciones Web.
