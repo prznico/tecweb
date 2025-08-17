@@ -13,4 +13,8 @@ Almacenamiento para entregas de prácticas y proyectos
 
 > Desarrollo de Aplicaciones Web
 
+###**Periodo:**###
+
+> Otoño 2025
+
 
