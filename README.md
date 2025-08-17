@@ -1,20 +1,21 @@
 # tecweb
-Almacenamiento para entregas de prácticas y proyectos
 
-###**Matricula:**###
+### **Matricula:** ###
 
 > 202247451
 
-###**Nombre:**###
+### **Nombre:** ###
 
 > Nicole Pérez Flores
 
-###**Materia:**###
+### **Materia:** ###
 
 > Desarrollo de Aplicaciones Web
 
-###**Periodo:**###
+### **Periodo:** ###
 
 > Otoño 2025
 
+### **Descripción:**  ###
 
+> El propósito de este repositorio es almacenar prácticas y proyectos del curso de Desarrollo de Aplicaciones Web.
