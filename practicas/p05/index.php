@@ -5,33 +5,29 @@
     <title>Práctica 5</title>
 </head>
 <body>
-    <h2>Ejercicio 4</h2>
-    <p>Lee y muestra los valores de las variables del ejercicio anterior, pero ahora con la ayuda de la matriz $GLOBALS o del modificador global de PHP. </p>
+    <h2>Ejercicio 5</h2>
+    <p>Dar el valor de las variables $a, $b, $c al final del siguiente script:  </p>
+    <p>$a = “7 personas”;   $b = (integer) $a;   $a = “9E3”;  $c = (double) $a;</p>
     
     <?php
         //AQUI VA MI CÓDIGO PHP
-        $a = "PHP5";
-        $z[] = &$a;
-        $b = "5a version de PHP";
-        @$c = $b * 10;
-        $a .= $b;
-        @$b *= $c;
-        $z[0] = "MySQL";
+        $a = "7 personas";
+        echo "\$a = $a <br>";
+        $b = (integer) $a;
+        echo "\$b = $b <br>";
+        $a = "9E3";
+        echo "\$a = $a <br>";
+        $c = (double) $a;
+        echo "\$c = $c <br>";
 
-        echo "<h3>Usando modificador global:</h3>";
+        echo "<h3>Valores finales de las variables </h3>";
+        echo "\$a = $a <br>";
+        echo "tipo: " .gettype($a) ."<br>";
+        echo "\$b = $b <br>";
+        echo "tipo: " .gettype($b) ."<br>";
+        echo "\$c = $c <br>";
+        echo "tipo: " .gettype($c) ."<br>";
         
-        function mostrarVariables() {
-            global $a, $b, $c, $z;
-            
-            echo "\$a = $a (tipo: " . gettype($a) . ")<br>";
-            echo "\$b = $b (tipo: " . gettype($b) . ")<br>";
-            echo "\$c = $c (tipo: " . gettype($c) . ")<br>";
-            echo "\$z = ";
-            print_r($z);
-            echo " (tipo: " . gettype($z) . ")<br>";
-        }
-        
-        mostrarVariables();
 
     ?>
 </body>
