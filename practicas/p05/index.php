@@ -5,56 +5,33 @@
     <title>Práctica 5</title>
 </head>
 <body>
-    <h2>Ejercicio 3</h2>
-    <p>Muestra el contenido de cada variable inmediatamente después de cada asignación,verificar la evolución del tipo de estas variables (imprime todos los componentes de los arreglo): </p>
+    <h2>Ejercicio 4</h2>
+    <p>Lee y muestra los valores de las variables del ejercicio anterior, pero ahora con la ayuda de la matriz $GLOBALS o del modificador global de PHP. </p>
     
     <?php
         //AQUI VA MI CÓDIGO PHP
         $a = "PHP5";
-        echo "\$a = $a";
-        echo '<br>';
-        echo 'tipo: ' . gettype($a);
-        echo '<br><br>';
-        
-        $z[] = &$a; 
-        echo "\$z[] = ";
-        print_r($z); // se usa print_r() imprimir para arrays
-        echo '<br>';
-        echo 'tipo: ' . gettype($z);
-        echo '<br><br>';
-
+        $z[] = &$a;
         $b = "5a version de PHP";
-        echo "\$b = $b";
-        echo '<br>';
-        echo 'tipo: ' . gettype($b);
-        echo '<br><br>';
-
-        @$c = $b*10;
-        echo "\$c = $c";
-        echo '<br>';
-        echo 'tipo: ' . gettype($c);
-        echo '<br><br>';
-
+        @$c = $b * 10;
         $a .= $b;
-        echo "\$a = $a";
-        echo '<br>';
-        echo 'tipo: ' . gettype($a);
-        echo '<br><br>';
-
         @$b *= $c;
-        echo "\$b = $b";
-        echo '<br>';
-        echo 'tipo: ' . gettype($b);
-        echo '<br><br>';
-
         $z[0] = "MySQL";
-        echo "\$z[0] = $z[0]";
-        echo '<br>';
-        echo 'tipo: ' . gettype($z[0]);
-        echo '<br><br>';
-        echo 'Array completo: ';
-        print_r($z); 
 
+        echo "<h3>Usando modificador global:</h3>";
+        
+        function mostrarVariables() {
+            global $a, $b, $c, $z;
+            
+            echo "\$a = $a (tipo: " . gettype($a) . ")<br>";
+            echo "\$b = $b (tipo: " . gettype($b) . ")<br>";
+            echo "\$c = $c (tipo: " . gettype($c) . ")<br>";
+            echo "\$z = ";
+            print_r($z);
+            echo " (tipo: " . gettype($z) . ")<br>";
+        }
+        
+        mostrarVariables();
 
     ?>
 </body>
