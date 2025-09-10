@@ -5,30 +5,42 @@
     <title>Práctica 5</title>
 </head>
 <body>
-    <h2>Ejercicio 1</h2>
-    <p>Determina cuál de las siguientes variables son válidas y explica por qué:</p>
-    <p>$_myvar,  $_7var,  myvar,  $myvar,  $var7,  $_element1, $house*5</p>
+    <h2>Ejercicio 2</h2>
+    <p>Proporcionar los valores de $a, $b, $c </p>
+    
     <?php
         //AQUI VA MI CÓDIGO PHP
-        $_myvar;
-        $_7var;
-        //myvar;       // Inválida
-        $myvar;
-        $var7;
-        $_element1;
-        //$house*5;     // Invalida
-        
-        echo '<h4>Respuesta:</h4>';   
-    
+        $a = "ManejadorSQL";
+        $b = 'MySQL';
+        $c = &$a;
+
+        echo 'a. Ahora muestra el contenido de cada variable';   
         echo '<ul>';
-        echo '<li>$_myvar es válida porque inicia con guión bajo.</li>';
-        echo '<li>$_7var es válida porque inicia con guión bajo.</li>';
-        echo '<li>myvar es inválida porque no tiene el signo de dolar ($).</li>';
-        echo '<li>$myvar es válida porque inicia con una letra.</li>';
-        echo '<li>$var7 es válida porque inicia con una letra.</li>';
-        echo '<li>$_element1 es válida porque inicia con guión bajo.</li>';
-        echo '<li>$house*5 es inválida porque el símbolo * no está permitido.</li>';
+        echo "<li>\$a = $a </li>";
+        echo "<li>\$b = $b </li>";
+        echo "<li>\$c = $c </li>";
         echo '</ul>';
+
+
+        echo 'b. Agrega al código actual las siguientes asignaciones: $a = “PHP server”;    $b = &$a;';  
+        $a = "PHP server";
+        $b = &$a;
+
+        echo '<br>';
+        echo 'c. Vuelve a mostrar el contenido de cada uno'; 
+        echo '<ul>';
+        echo "<li>\$a = $a </li>";
+        echo "<li>\$b = $b </li>";
+        echo "<li>\$c = $c </li>";
+        echo '</ul>';
+
+        echo 'd. Describe y muestra en la página obtenida qué ocurrió en el segundo bloque de asignaciones';
+        echo '<ul>';
+        echo "<li>Antes \$a tenia ManejadorSQL ahora \$a ahora vale PHP server, se reasignó su valor";
+        echo "<li>Antes \$b se convierte en referencia de \$a (ambas apuntan al mismo lugar)";
+        echo "<li>Antes \$c se mantiene con la misma referencia que había tomado de \$a desde el principio y como ahora \$a es PHP server, c tambien lo es";
+        echo '</ul>';
+
     ?>
 </body>
 </html>
