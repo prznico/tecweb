@@ -5,41 +5,56 @@
     <title>Práctica 5</title>
 </head>
 <body>
-    <h2>Ejercicio 2</h2>
-    <p>Proporcionar los valores de $a, $b, $c </p>
+    <h2>Ejercicio 3</h2>
+    <p>Muestra el contenido de cada variable inmediatamente después de cada asignación,verificar la evolución del tipo de estas variables (imprime todos los componentes de los arreglo): </p>
     
     <?php
         //AQUI VA MI CÓDIGO PHP
-        $a = "ManejadorSQL";
-        $b = 'MySQL';
-        $c = &$a;
-
-        echo 'a. Ahora muestra el contenido de cada variable';   
-        echo '<ul>';
-        echo "<li>\$a = $a </li>";
-        echo "<li>\$b = $b </li>";
-        echo "<li>\$c = $c </li>";
-        echo '</ul>';
-
-
-        echo 'b. Agrega al código actual las siguientes asignaciones: $a = “PHP server”;    $b = &$a;';  
-        $a = "PHP server";
-        $b = &$a;
-
+        $a = "PHP5";
+        echo "\$a = $a";
         echo '<br>';
-        echo 'c. Vuelve a mostrar el contenido de cada uno'; 
-        echo '<ul>';
-        echo "<li>\$a = $a </li>";
-        echo "<li>\$b = $b </li>";
-        echo "<li>\$c = $c </li>";
-        echo '</ul>';
+        echo 'tipo: ' . gettype($a);
+        echo '<br><br>';
+        
+        $z[] = &$a; 
+        echo "\$z[] = ";
+        print_r($z); // se usa print_r() imprimir para arrays
+        echo '<br>';
+        echo 'tipo: ' . gettype($z);
+        echo '<br><br>';
 
-        echo 'd. Describe y muestra en la página obtenida qué ocurrió en el segundo bloque de asignaciones';
-        echo '<ul>';
-        echo "<li>Antes \$a tenia ManejadorSQL ahora \$a ahora vale PHP server, se reasignó su valor";
-        echo "<li>Antes \$b se convierte en referencia de \$a (ambas apuntan al mismo lugar)";
-        echo "<li>Antes \$c se mantiene con la misma referencia que había tomado de \$a desde el principio y como ahora \$a es PHP server, c tambien lo es";
-        echo '</ul>';
+        $b = "5a version de PHP";
+        echo "\$b = $b";
+        echo '<br>';
+        echo 'tipo: ' . gettype($b);
+        echo '<br><br>';
+
+        @$c = $b*10;
+        echo "\$c = $c";
+        echo '<br>';
+        echo 'tipo: ' . gettype($c);
+        echo '<br><br>';
+
+        $a .= $b;
+        echo "\$a = $a";
+        echo '<br>';
+        echo 'tipo: ' . gettype($a);
+        echo '<br><br>';
+
+        @$b *= $c;
+        echo "\$b = $b";
+        echo '<br>';
+        echo 'tipo: ' . gettype($b);
+        echo '<br><br>';
+
+        $z[0] = "MySQL";
+        echo "\$z[0] = $z[0]";
+        echo '<br>';
+        echo 'tipo: ' . gettype($z[0]);
+        echo '<br><br>';
+        echo 'Array completo: ';
+        print_r($z); 
+
 
     ?>
 </body>
