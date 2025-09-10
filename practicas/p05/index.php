@@ -5,29 +5,45 @@
     <title>Práctica 5</title>
 </head>
 <body>
-    <h2>Ejercicio 5</h2>
-    <p>Dar el valor de las variables $a, $b, $c al final del siguiente script:  </p>
-    <p>$a = “7 personas”;   $b = (integer) $a;   $a = “9E3”;  $c = (double) $a;</p>
+    <h2>Ejercicio 6</h2>
+    <p>Dar y comprobar el valor booleano de las variables $a, $b, $c, $d, $e y $f y muéstralas usando la función var_dump(<datos>).  </p>
     
     <?php
         //AQUI VA MI CÓDIGO PHP
-        $a = "7 personas";
-        echo "\$a = $a <br>";
-        $b = (integer) $a;
-        echo "\$b = $b <br>";
-        $a = "9E3";
-        echo "\$a = $a <br>";
-        $c = (double) $a;
-        echo "\$c = $c <br>";
+        $a = "0";       
+        $b = "TRUE";
+        $c = FALSE;
+        $d = ($a OR $b);
+        $e = ($a AND $c);
+        $f = ($a XOR $b);
+       
+        echo"<h3>Valores booleanos con var_dump </h3>";
+        echo "a = ";
+        var_dump($a); 
+        echo "<br>";
 
-        echo "<h3>Valores finales de las variables </h3>";
-        echo "\$a = $a <br>";
-        echo "tipo: " .gettype($a) ."<br>";
-        echo "\$b = $b <br>";
-        echo "tipo: " .gettype($b) ."<br>";
-        echo "\$c = $c <br>";
-        echo "tipo: " .gettype($c) ."<br>";
+        echo "b = ";
+        var_dump($b); 
+        echo "<br>";
+
+        echo "c = ";
+        var_dump($c); 
+        echo "<br>";
+
+        echo "d = ";
+        var_dump($d); 
+        echo "<br>";
+
+        echo "e = ";
+        var_dump($e); 
+        echo "<br>";
+
+        echo "f = ";
+        var_dump($f); 
         
+        echo"<h3>Valores booleanos con para usar echo con c y e </h3>";
+        echo "c = " . var_export($c, true) . "<br>"; // Muestra: c = false
+        echo "e = " . var_export($e, true) . "<br>"; // Muestra: e = false
 
     ?>
 </body>
