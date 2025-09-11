@@ -5,45 +5,22 @@
     <title>Práctica 5</title>
 </head>
 <body>
-    <h2>Ejercicio 6</h2>
-    <p>Dar y comprobar el valor booleano de las variables $a, $b, $c, $d, $e y $f y muéstralas usando la función var_dump(<datos>).  </p>
+    <h2>Ejercicio 7</h2>
+    <p>Usando la variable predefinida $_SERVER, determina lo siguiente:  </p>
     
     <?php
         //AQUI VA MI CÓDIGO PHP
-        $a = "0";       
-        $b = "TRUE";
-        $c = FALSE;
-        $d = ($a OR $b);
-        $e = ($a AND $c);
-        $f = ($a XOR $b);
-       
-        echo"<h3>Valores booleanos con var_dump </h3>";
-        echo "a = ";
-        var_dump($a); 
-        echo "<br>";
+        echo "NOMBRE DEL HOST: " .$_SERVER['SERVER_NAME'] . "<br>";
 
-        echo "b = ";
-        var_dump($b); 
-        echo "<br>";
+        echo "<h3> a. La versión de Apache y PHP utilizando SERVER_SOFTWARE</h3>";
+        echo "VERSIONES: " .$_SERVER['SERVER_SOFTWARE'] . "<br>";
 
-        echo "c = ";
-        var_dump($c); 
-        echo "<br>";
+        echo "<h3>b. El nombre del sistema operativo (servidor) haciendo uso de: HTTP_USER_AGENT </h3>";
+        echo "NOMBRE SO: " .$_SERVER['HTTP_USER_AGENT'] . "<br>";
 
-        echo "d = ";
-        var_dump($d); 
-        echo "<br>";
+        echo "<h3>c. El idioma del navegador (cliente) usando HTTP_ACCEPT_LANGUAGE</h3>";
+        echo "IDIOMA: " .$_SERVER['HTTP_ACCEPT_LANGUAGE'] . "<br>";
 
-        echo "e = ";
-        var_dump($e); 
-        echo "<br>";
-
-        echo "f = ";
-        var_dump($f); 
-        
-        echo"<h3>Valores booleanos con para usar echo con c y e </h3>";
-        echo "c = " . var_export($c, true) . "<br>"; // Muestra: c = false
-        echo "e = " . var_export($e, true) . "<br>"; // Muestra: e = false
 
     ?>
 </body>
