@@ -6,11 +6,15 @@
     <title>Práctica 7</title>
 </head>
 <body>
+    <?php include 'src/funciones.php'; ?>
+
     <h2>Ejercicio 1</h2>
     <p>Escribir programa para comprobar si un número es un múltiplo de 5 y 7</p>
-    <?php
-        include 'src/funciones.php';
-    ?>
+    <?php ejercicio1(); ?>
+
+    <h2>Ejercicio 2</h2>
+    <p>Generación de secuencias hasta obtener: Impar, Par, Impar</p>
+    <?php ejercicio2(); ?>
 
     <h2>Ejemplo de POST</h2>
     <form action="http://localhost/tecweb/practicas/p04/index.php" method="post">
