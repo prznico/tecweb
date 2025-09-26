@@ -29,6 +29,13 @@
     <p>Arreglo con índices 97-122 (letras 'a' a 'z'):</p>
     <?php ejercicio4(); ?>
 
+
+    <h2>Ejercicio 5</h2>
+    <p>Validación de edad y sexo</p>
+    <p><a href="ejercicio5.php">Ir al formulario de validación</a></p>
+
+
+
     <h2>Ejemplo de POST</h2>
     <form action="http://localhost/tecweb/practicas/p07/index.php" method="post">
         Name: <input type="text" name="name"><br>
