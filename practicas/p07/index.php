@@ -34,7 +34,9 @@
     <p>Validación de edad y sexo</p>
     <p><a href="ejercicio5.php">Ir al formulario de validación</a></p>
 
-
+    <h2>Ejercicio 6</h2>
+    <p>Registrar parque vehicular</p>
+    <p><a href="ejercicio6.php">Ir al formulario</a></p>
 
     <h2>Ejemplo de POST</h2>
     <form action="http://localhost/tecweb/practicas/p07/index.php" method="post">
