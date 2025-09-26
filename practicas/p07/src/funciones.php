@@ -34,4 +34,54 @@
         $totalNumeros = $iteraciones * 3;
         echo "<p><strong>$totalNumeros números obtenidos en $iteraciones iteraciones</strong></p>";
     }
+
+
+    function ejercicio3($numero){
+        //verifica que el numero sea mayor a 0
+        if ($numero <= 0) {
+            return [
+                'encontrado' => false,
+                'mensaje' => 'Error: El múltiplo debe ser un número positivo mayor a 0',
+                'intentos' => 0,
+                'numero' => null
+            ];
+        }
+        
+
+        echo "<h4>Usando ciclo WHILE</h4>";
+        $intentos = 0;
+        $numeroEncontrado = null;
+        $encontrado = false;
+
+        while (!$encontrado) {
+            $intentos++;
+            $numeroAleatorio = rand(1, 1000); 
+            
+            if ($numeroAleatorio % $numero == 0) {
+                $encontrado = true;
+                $numeroEncontrado = $numeroAleatorio;
+                echo "Intento $intentos: $numeroAleatorio  MÚLTIPLO ENCONTRADO!";
+                echo "<br>";
+                echo "Por lo tanto <strong>  $numeroAleatorio es multiplo de $numero </strong>";
+            }   
+        }
+        
+        echo "<h4>Usando ciclo DO-WHILE</h4>"; 
+        $intentosDoWhile = 0;
+        $numDoWhile = null;
+    
+        do {
+            $intentosDoWhile++;
+            $numAleatorio = rand(1, 1000);
+            
+            if ($numAleatorio % $numero == 0) {
+                $numDoWhile = $numAleatorio;
+                echo "Intento $intentosDoWhile: $numAleatorio  MÚLTIPLO ENCONTRADO!";
+                echo "<br>";
+                echo "Por lo tanto <strong>  $numAleatorio es multiplo de $numero </strong>";
+            } 
+            
+        } while ($numDoWhile === null);
+    
+    }
 ?>

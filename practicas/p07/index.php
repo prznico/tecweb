@@ -16,8 +16,17 @@
     <p>Generación de secuencias hasta obtener: Impar, Par, Impar</p>
     <?php ejercicio2(); ?>
 
+    <h2>Ejercicio 3</h2>
+    <p>Encontrar el primer número entero obtenido aleatoriamente, pero que además sea múltiplo de un número dado.</p>
+    <form method="get">
+            <label>Ingresa un número entero:</label>
+            <input type="number" name="numero" min="1" max="100" required>
+            <input type="submit" value="Buscar">
+        </form>
+    <?php ejercicio3($_GET['numero']); ?>
+
     <h2>Ejemplo de POST</h2>
-    <form action="http://localhost/tecweb/practicas/p04/index.php" method="post">
+    <form action="http://localhost/tecweb/practicas/p07/index.php" method="post">
         Name: <input type="text" name="name"><br>
         E-mail: <input type="text" name="email"><br>
         <input type="submit">
