@@ -25,6 +25,10 @@
         </form>
     <?php ejercicio3($_GET['numero']); ?>
 
+    <h2>Ejercicio 4</h2>
+    <p>Arreglo con índices 97-122 (letras 'a' a 'z'):</p>
+    <?php ejercicio4(); ?>
+
     <h2>Ejemplo de POST</h2>
     <form action="http://localhost/tecweb/practicas/p07/index.php" method="post">
         Name: <input type="text" name="name"><br>

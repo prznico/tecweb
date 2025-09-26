@@ -84,4 +84,27 @@
         } while ($numDoWhile === null);
     
     }
+
+
+    function ejercicio4(){
+        // Crear arreglo 
+        $arreglo = [];
+        for ($ascii = 97; $ascii <= 122; $ascii++) {
+            $arreglo[$ascii] = chr($ascii);
+        }
+        
+        echo "<table border='1' style='border-collapse: collapse; margin: 10px 0;'>";
+        echo "<tr><th>Índice</th><th>chr(índice)</th><th>Valor</th></tr>";
+        
+        foreach ($arreglo as $indice => $valor) {
+            echo "<tr>";
+            echo "<td style='padding: 5px;'>$indice</td>";
+            echo "<td style='padding: 5px;'>chr($indice)</td>";
+            echo "<td style='padding: 5px; text-align: center; font-size: 20px; font-weight: bold;'>$valor</td>";
+            echo "</tr>";
+        }
+        
+        echo "</table>";
+
+    }
 ?>
