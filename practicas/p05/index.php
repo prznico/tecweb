@@ -279,6 +279,11 @@
 
 
     ?>
+    <p>
+        <a href="https://validator.w3.org/check?uri=referer"><img
+        src="https://www.w3.org/Icons/valid-xhtml11" alt="Valid XHTML 1.1" height="31" width="88" /></a>
+    </p>
+  
 </body>
 
 </html>
