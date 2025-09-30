@@ -266,16 +266,16 @@
     
     <?php
         //AQUI VA MI CÓDIGO PHP
-        echo "NOMBRE DEL HOST: " .$_SERVER['SERVER_NAME'] . "<br>";
+        echo "<p><strong>NOMBRE DEL HOST:</strong> " . $_SERVER['SERVER_NAME'] . "<br />";
 
-        echo "<h3> a. La versión de Apache y PHP utilizando SERVER_SOFTWARE</h3>";
-        echo "VERSIONES: " .$_SERVER['SERVER_SOFTWARE'] . "<br>";
+        echo "<strong> a. La versión de Apache y PHP utilizando SERVER_SOFTWARE</strong><br />";
+        echo "<strong>VERSIONES:</strong> " . $_SERVER['SERVER_SOFTWARE'] . "<br />";
 
-        echo "<h3>b. El nombre del sistema operativo (servidor) haciendo uso de: HTTP_USER_AGENT </h3>";
-        echo "NOMBRE SO: " .$_SERVER['HTTP_USER_AGENT'] . "<br>";
+        echo "<strong>b. El nombre del sistema operativo (servidor) haciendo uso de: HTTP_USER_AGENT </strong><br />";
+        echo "<strong>NOMBRE SO:</strong> " . $_SERVER['HTTP_USER_AGENT'] . "<br />";
 
-        echo "<h3>c. El idioma del navegador (cliente) usando HTTP_ACCEPT_LANGUAGE</h3>";
-        echo "IDIOMA: " .$_SERVER['HTTP_ACCEPT_LANGUAGE'] . "<br>";
+        echo "<strong>c. El idioma del navegador (cliente) usando HTTP_ACCEPT_LANGUAGE</strong><br />";
+        echo "<strong>IDIOMA:</strong> " . $_SERVER['HTTP_ACCEPT_LANGUAGE'] . "</p>";
 
 
     ?>
