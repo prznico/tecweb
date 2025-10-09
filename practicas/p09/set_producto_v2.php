@@ -53,8 +53,8 @@
 					echo '<p class="error">ERROR: Ya existe un producto con el mismo nombre, marca y modelo en la base de datos.</p>';
 				} else {
 					// INSERTAR usando column names (sin id )
-					$sql_insert = "INSERT INTO productos (nombre, marca, modelo, precio, detalles, unidades, imagen) 
-								   VALUES ('{$nombre}', '{$marca}', '{$modelo}', {$precio}, '{$detalles}', {$unidades}, '{$imagen}')";
+					$sql_insert = "INSERT INTO productos (nombre, marca, modelo, precio, detalles, unidades, imagen, eliminado) 
+								   VALUES ('{$nombre}', '{$marca}', '{$modelo}', {$precio}, '{$detalles}', {$unidades}, '{$imagen}', 0)";
 
 					if ($link->query($sql_insert)) {
 						$nuevo_id = $link->insert_id;
@@ -70,6 +70,7 @@
 						echo '<li><strong>Precio:</strong> <em>$'.number_format($precio, 2).'</em></li>';
 						echo '<li><strong>Unidades:</strong> <em>'.$unidades.'</em></li>';
 						echo '<li><strong>Imagen:</strong> <em>'.$imagen.'</em></li>';
+                        echo '<li><strong>Estado:</strong> <em>Activo (eliminado = 0)</em></li>';
 						echo '</ul>';
 						echo '<p><strong>Detalles del producto:</strong> <em>'.$detalles.'</em></p>';
 						echo '</div>';
