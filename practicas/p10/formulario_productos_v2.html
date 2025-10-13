@@ -23,7 +23,8 @@
         }
         input[type="text"],
         input[type="number"],
-        textarea {
+        textarea,
+        select {
             width: 100%;
             padding: 10px;
             border: 1px solid #ddd;
@@ -42,11 +43,24 @@
             cursor: pointer;
             width: 100%;
         }
+        .btn-update {
+            background-color: #f39c12;
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
         .btn-submit:hover {
             background-color: #1d5d87;
         }
+        .btn-update:hover {
+            background-color: #e67e22;
+        }
         .required {
-            color: #3c80e7;
+            color: #e74c3c;
         }
         .error-message {
             color: #e74c3c;
@@ -68,21 +82,27 @@
             margin-bottom: 20px;
             display: none;
         }
+        .form-title {
+            color: #f39c12;
+        }
     </style>
 </head>
 <body>
-    <div >
-        <h1>Registro de Nuevo Producto</h1>
+    <div>
+        <h1 id="formTitle">Registro de Nuevo Producto</h1>
 
-         <div id="successMessage" class="success-message">
+        <div id="successMessage" class="success-message">
             ¡Producto registrado exitosamente!
         </div>
         
         <form id="formularioProductos" action="http://localhost/tecweb/practicas/p09/set_producto_v2.php" method="post">
+            <!-- Campo oculto para el ID en modo edición -->
+            <input type="hidden" id="productoId" name="id" value="">
+            
             <div class="form-group">
                 <label for="nombre">Nombre del Producto <span class="required">*</span></label>
-                <input type="text" id="nombre" name="nombre" required>
-                <div class="char-counter"><span id="nombreCounter"></div>
+                <input type="text" id="nombre" name="nombre" value="" required>
+                <div class="char-counter"><span id="nombreCounter">0</span>/100</div>
                 <div id="nombreError" class="error-message">El nombre es requerido y debe tener máximo 100 caracteres</div>
             </div>
             
@@ -105,40 +125,40 @@
             
             <div class="form-group">
                 <label for="modelo">Modelo <span class="required">*</span></label>
-                <input type="text" id="modelo" name="modelo" required>
-                <div class="char-counter"><span id="modeloCounter"></div>
+                <input type="text" id="modelo" name="modelo" value="" required>
+                <div class="char-counter"><span id="modeloCounter">0</span>/25</div>
                 <div id="modeloError" class="error-message">El modelo es requerido, debe ser alfanumérico y tener máximo 25 caracteres</div>
             </div>
             
             <div class="form-group">
                 <label for="precio">Precio <span class="required">*</span></label>
-                <input type="number" id="precio" name="precio" min="0" step="0.01" required>
+                <input type="number" id="precio" name="precio" min="0" step="0.01" value="" required>
                 <div id="precioError" class="error-message">El precio es requerido y debe ser mayor a $99.99</div>
             </div>
             
             <div class="form-group">
                 <label for="detalles">Detalles del Producto</label>
                 <textarea id="detalles" name="detalles" placeholder="Describe las características del producto..."></textarea>
-                <div class="char-counter"><span id="detallesCounter"></div>
+                <div class="char-counter"><span id="detallesCounter">0</span>/250</div>
                 <div id="detallesError" class="error-message">Los detalles no pueden exceder los 250 caracteres</div>
             </div>
             
             <div class="form-group">
                 <label for="unidades">Unidades en Inventario <span class="required">*</span></label>
-                <input type="number" id="unidades" name="unidades" min="0" required>
+                <input type="number" id="unidades" name="unidades" min="0" value="" required>
                 <div id="unidadesError" class="error-message">Las unidades son requeridas y deben ser mayor o igual a 0</div>
             </div>
             
             <div class="form-group">
                 <label for="imagen">URL de la Imagen</label>
-                <input type="text" id="imagen" name="imagen" placeholder="Ej: img/producto.jpg">
+                <input type="text" id="imagen" name="imagen" placeholder="Ej: img/producto.jpg" value="">
             </div>
             
-            <button type="submit" class="btn-submit">Registrar Producto</button>
+            <button type="submit" id="submitButton" class="btn-submit">Registrar Producto</button>
         </form>
     </div>
 
-     <script>
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.getElementById('formularioProductos');
             const nombreInput = document.getElementById('nombre');
@@ -148,16 +168,94 @@
             const detallesTextarea = document.getElementById('detalles');
             const unidadesInput = document.getElementById('unidades');
             const imagenInput = document.getElementById('imagen');
+            const previewImagen = document.getElementById('previewImagen');
             const successMessage = document.getElementById('successMessage');
+            const formTitle = document.getElementById('formTitle');
+            const submitButton = document.getElementById('submitButton');
+            const productoId = document.getElementById('productoId');
             
             // Contadores de caracteres
             const nombreCounter = document.getElementById('nombreCounter');
             const modeloCounter = document.getElementById('modeloCounter');
             const detallesCounter = document.getElementById('detallesCounter');
             
+            // Verificar si estamos en modo edición
+            const isEditMode = sessionStorage.getItem('edit_accion') === 'editar';
+            
+            if (isEditMode) {
+                // Cargar datos del producto a editar
+                cargarDatosEdicion();
+                
+                // Cambiar título y botón
+                formTitle.textContent = 'Editar Producto Existente';
+                formTitle.className = 'form-title';
+                submitButton.textContent = 'Actualizar Producto';
+                submitButton.className = 'btn-update';
+                
+                // Cambiar acción del formulario
+                form.action = 'update_producto.php';
+            }
+            
+            function cargarDatosEdicion() {
+                // Obtener datos del sessionStorage
+                productoId.value = sessionStorage.getItem('edit_id') || '';
+                nombreInput.value = sessionStorage.getItem('edit_nombre') || '';
+                marcaSelect.value = sessionStorage.getItem('edit_marca') || '';
+                modeloInput.value = sessionStorage.getItem('edit_modelo') || '';
+                precioInput.value = sessionStorage.getItem('edit_precio') || '';
+                unidadesInput.value = sessionStorage.getItem('edit_unidades') || '';
+                detallesTextarea.value = sessionStorage.getItem('edit_detalles') || '';
+                imagenInput.value = sessionStorage.getItem('edit_imagen') || '';
+                
+                // Actualizar contadores
+                nombreCounter.textContent = nombreInput.value.length;
+                modeloCounter.textContent = modeloInput.value.length;
+                detallesCounter.textContent = detallesTextarea.value.length;
+                
+                
+                
+                // Limpiar sessionStorage después de cargar
+                limpiarSessionStorage();
+            }
+            
+            function limpiarSessionStorage() {
+                // Limpiar solo los datos de edición
+                sessionStorage.removeItem('edit_id');
+                sessionStorage.removeItem('edit_nombre');
+                sessionStorage.removeItem('edit_marca');
+                sessionStorage.removeItem('edit_modelo');
+                sessionStorage.removeItem('edit_precio');
+                sessionStorage.removeItem('edit_unidades');
+                sessionStorage.removeItem('edit_detalles');
+                sessionStorage.removeItem('edit_imagen');
+                sessionStorage.removeItem('edit_accion');
+            }
+            
+            // Actualizar contadores en tiempo real
+            nombreInput.addEventListener('input', function() {
+                nombreCounter.textContent = this.value.length;
+            });
+            
+            modeloInput.addEventListener('input', function() {
+                modeloCounter.textContent = this.value.length;
+            });
+            
+            detallesTextarea.addEventListener('input', function() {
+                detallesCounter.textContent = this.value.length;
+            });
+            
+            // Vista previa de imagen
+            imagenInput.addEventListener('input', function() {
+                if (this.value) {
+                    previewImagen.src = this.value;
+                    previewImagen.style.display = 'block';
+                } else {
+                    previewImagen.style.display = 'none';
+                }
+            });
+            
             // Validaciones
             form.addEventListener('submit', function(e) {
-                
                 let isValid = true;
                 
                 // Validar nombre
@@ -227,11 +325,15 @@
                     if (!imagenInput.value.trim()) {
                         imagenInput.value = 'img/imagen.png';
                     }
+                    
                     // Mostrar mensaje de éxito
                     successMessage.style.display = 'block';
+                    successMessage.textContent = isEditMode ? 
+                        '¡Producto actualizado exitosamente!' : 
+                        '¡Producto registrado exitosamente!';
                     
-                    // Aquí normalmente enviarías los datos al servidor
                     console.log('Datos válidos:');
+                    console.log('ID:', productoId.value);
                     console.log('Nombre:', nombreInput.value);
                     console.log('Marca:', marcaSelect.value);
                     console.log('Modelo:', modeloInput.value);
@@ -240,8 +342,7 @@
                     console.log('Unidades:', unidadesInput.value);
                     console.log('Imagen:', imagenInput.value);
                     
-                }
-                else{
+                } else {
                     e.preventDefault();
                     console.log('Formulario tiene errores, no se enviará');
                 }
