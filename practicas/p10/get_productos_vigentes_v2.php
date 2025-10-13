@@ -52,8 +52,7 @@
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 	</head>
 	<body>
-		<div class="container">
-			<h3>PRODUCTOS - ELIMINADO = <?= $eliminado ?></h3>
+			<h3>PRODUCTOS</h3>
 
 			<br/>
 			
@@ -83,7 +82,7 @@
 								<td class="row-data">$<?= number_format($row['precio'], 2) ?></td>
 								<td class="row-data"><?= $row['unidades'] ?></td>
 								<td class="row-data"><?= utf8_encode($row['detalles']) ?></td>
-								<td><img src="<?= $row['imagen'] ?>" width="50" height="50"></td>
+								<td><img src="<?= $row['imagen'] ?>" width="80" height="80"></td>
 								<td>
 									<button class="btn btn-warning btn-sm" onclick="editarProducto(<?= $row['id'] ?>)">Editar</button>
 								</td>

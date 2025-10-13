@@ -52,14 +52,13 @@
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 	</head>
 	<body>
-		<div class="container">
-			<h3>PRODUCTOS - UNIDADES <= <?= $tope ?></h3>
+			<h3>PRODUCTOS</h3>
 
 			<br/>
 			
 			<?php if( count($productos) > 0 ) : ?>
 
-				<table class="table table-striped">
+				<table class="table">
 					<thead class="thead-dark">
 						<tr>
 						<th scope="col">#</th>
@@ -83,7 +82,7 @@
 								<td class="row-data">$<?= number_format($row['precio'], 2) ?></td>
 								<td class="row-data"><?= $row['unidades'] ?></td>
 								<td class="row-data"><?= utf8_encode($row['detalles']) ?></td>
-								<td><img src="<?= $row['imagen'] ?>" width="50" height="50"></td>
+								<td><img src="<?= $row['imagen'] ?>" width="80" height="80"></td>
 								<td>
 									<button class="btn btn-warning btn-sm" onclick="editarProducto(<?= $row['id'] ?>)">Editar</button>
 								</td>
