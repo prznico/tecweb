@@ -48,41 +48,85 @@
         .required {
             color: #3c80e7;
         }
+        .error-message {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        .char-counter {
+            font-size: 12px;
+            text-align: right;
+            color: #777;
+            margin-top: 5px;
+        }
+        .success-message {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            display: none;
+        }
     </style>
 </head>
 <body>
     <div >
         <h1>Registro de Nuevo Producto</h1>
+
+         <div id="successMessage" class="success-message">
+            ¡Producto registrado exitosamente!
+        </div>
         
         <form id="formularioProductos" action="http://localhost/tecweb/practicas/p09/set_producto_v2.php" method="post">
             <div class="form-group">
                 <label for="nombre">Nombre del Producto <span class="required">*</span></label>
                 <input type="text" id="nombre" name="nombre" required>
+                <div class="char-counter"><span id="nombreCounter"></div>
+                <div id="nombreError" class="error-message">El nombre es requerido y debe tener máximo 100 caracteres</div>
             </div>
             
             <div class="form-group">
                 <label for="marca">Marca <span class="required">*</span></label>
-                <input type="text" id="marca" name="marca" required>
+                <select id="marca" name="marca">
+                    <option value="">Selecciona una marca</option>
+                    <option value="Dior">Dior</option>
+                    <option value="Guess">Guess</option>
+                    <option value="Dolce & Gabbana">Dolce & Gabbana</option>
+                    <option value="YSL">YSL</option>
+                    <option value="Gucci">Gucci</option>
+                    <option value="Chanel">Chanel</option>
+                    <option value="Versace">Versace</option>
+                    <option value="Prada">Prada</option>
+                    <option value="Calvin Klein">Calvin Klein</option>
+                </select>
+                <div id="marcaError" class="error-message">Debes seleccionar una marca</div>
             </div>
             
             <div class="form-group">
                 <label for="modelo">Modelo <span class="required">*</span></label>
                 <input type="text" id="modelo" name="modelo" required>
+                <div class="char-counter"><span id="modeloCounter"></div>
+                <div id="modeloError" class="error-message">El modelo es requerido, debe ser alfanumérico y tener máximo 25 caracteres</div>
             </div>
             
             <div class="form-group">
                 <label for="precio">Precio <span class="required">*</span></label>
                 <input type="number" id="precio" name="precio" min="0" step="0.01" required>
+                <div id="precioError" class="error-message">El precio es requerido y debe ser mayor a $99.99</div>
             </div>
             
             <div class="form-group">
                 <label for="detalles">Detalles del Producto</label>
                 <textarea id="detalles" name="detalles" placeholder="Describe las características del producto..."></textarea>
+                <div class="char-counter"><span id="detallesCounter"></div>
+                <div id="detallesError" class="error-message">Los detalles no pueden exceder los 250 caracteres</div>
             </div>
             
             <div class="form-group">
                 <label for="unidades">Unidades en Inventario <span class="required">*</span></label>
                 <input type="number" id="unidades" name="unidades" min="0" required>
+                <div id="unidadesError" class="error-message">Las unidades son requeridas y deben ser mayor o igual a 0</div>
             </div>
             
             <div class="form-group">
@@ -93,5 +137,116 @@
             <button type="submit" class="btn-submit">Registrar Producto</button>
         </form>
     </div>
+
+     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('formularioProductos');
+            const nombreInput = document.getElementById('nombre');
+            const marcaSelect = document.getElementById('marca');
+            const modeloInput = document.getElementById('modelo');
+            const precioInput = document.getElementById('precio');
+            const detallesTextarea = document.getElementById('detalles');
+            const unidadesInput = document.getElementById('unidades');
+            const imagenInput = document.getElementById('imagen');
+            const successMessage = document.getElementById('successMessage');
+            
+            // Contadores de caracteres
+            const nombreCounter = document.getElementById('nombreCounter');
+            const modeloCounter = document.getElementById('modeloCounter');
+            const detallesCounter = document.getElementById('detallesCounter');
+            
+            // Validaciones
+            form.addEventListener('submit', function(e) {
+                
+                let isValid = true;
+                
+                // Validar nombre
+                if (!nombreInput.value || nombreInput.value.length > 100) {
+                    document.getElementById('nombreError').style.display = 'block';
+                    nombreInput.style.borderColor = '#e74c3c';
+                    isValid = false;
+                } else {
+                    document.getElementById('nombreError').style.display = 'none';
+                    nombreInput.style.borderColor = '#ddd';
+                }
+                
+                // Validar marca
+                if (!marcaSelect.value) {
+                    document.getElementById('marcaError').style.display = 'block';
+                    marcaSelect.style.borderColor = '#e74c3c';
+                    isValid = false;
+                } else {
+                    document.getElementById('marcaError').style.display = 'none';
+                    marcaSelect.style.borderColor = '#ddd';
+                }
+                
+                // Validar modelo
+                const modeloPattern = /^[a-zA-Z0-9\s\-]+$/;
+                if (!modeloInput.value || !modeloPattern.test(modeloInput.value) || modeloInput.value.length > 25) {
+                    document.getElementById('modeloError').style.display = 'block';
+                    modeloInput.style.borderColor = '#e74c3c';
+                    isValid = false;
+                } else {
+                    document.getElementById('modeloError').style.display = 'none';
+                    modeloInput.style.borderColor = '#ddd';
+                }
+                
+                // Validar precio
+                if (!precioInput.value || parseFloat(precioInput.value) <= 99.99) {
+                    document.getElementById('precioError').style.display = 'block';
+                    precioInput.style.borderColor = '#e74c3c';
+                    isValid = false;
+                } else {
+                    document.getElementById('precioError').style.display = 'none';
+                    precioInput.style.borderColor = '#ddd';
+                }
+                
+                // Validar detalles
+                if (detallesTextarea.value.length > 250) {
+                    document.getElementById('detallesError').style.display = 'block';
+                    detallesTextarea.style.borderColor = '#e74c3c';
+                    isValid = false;
+                } else {
+                    document.getElementById('detallesError').style.display = 'none';
+                    detallesTextarea.style.borderColor = '#ddd';
+                }
+                
+                // Validar unidades
+                if (!unidadesInput.value || parseInt(unidadesInput.value) < 0) {
+                    document.getElementById('unidadesError').style.display = 'block';
+                    unidadesInput.style.borderColor = '#e74c3c';
+                    isValid = false;
+                } else {
+                    document.getElementById('unidadesError').style.display = 'none';
+                    unidadesInput.style.borderColor = '#ddd';
+                }
+                
+                // Si todas las validaciones pasan
+                if (isValid) {
+                    // Usar imagen por defecto si no se proporciona una
+                    if (!imagenInput.value.trim()) {
+                        imagenInput.value = 'img/imagen.png';
+                    }
+                    // Mostrar mensaje de éxito
+                    successMessage.style.display = 'block';
+                    
+                    // Aquí normalmente enviarías los datos al servidor
+                    console.log('Datos válidos:');
+                    console.log('Nombre:', nombreInput.value);
+                    console.log('Marca:', marcaSelect.value);
+                    console.log('Modelo:', modeloInput.value);
+                    console.log('Precio:', precioInput.value);
+                    console.log('Detalles:', detallesTextarea.value);
+                    console.log('Unidades:', unidadesInput.value);
+                    console.log('Imagen:', imagenInput.value);
+                    
+                }
+                else{
+                    e.preventDefault();
+                    console.log('Formulario tiene errores, no se enviará');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
