@@ -124,6 +124,59 @@ function agregarProducto(e) {
     var finalJSON = JSON.parse(productoJsonString);
     // SE AGREGA AL JSON EL NOMBRE DEL PRODUCTO
     finalJSON['nombre'] = document.getElementById('name').value;
+
+    // VALIDACIONES
+        let isValid = true;
+        let errors = [];
+
+        // Validar nombre
+        if (!finalJSON.nombre || finalJSON.nombre.length > 100) {
+            errors.push('El nombre es requerido y no debe exceder 100 caracteres');
+            isValid = false;
+        }
+        
+        // Validar marca
+        if (!finalJSON.marca || finalJSON.marca === 'NA') {
+            errors.push('Debes seleccionar una marca válida');
+            isValid = false;
+        }
+        
+        // Validar modelo
+        const modeloPattern = /^[a-zA-Z0-9\s\-]+$/;
+        if (!finalJSON.modelo || !modeloPattern.test(finalJSON.modelo) || finalJSON.modelo.length > 25) {
+            errors.push('El modelo es requerido, máximo 25 caracteres y solo puede contener letras, números, espacios y guiones');
+            isValid = false;
+        }
+        
+        // Validar precio
+        if (!finalJSON.precio || parseFloat(finalJSON.precio) <= 99.99) {
+            errors.push('El precio debe ser mayor a $99.99');
+            isValid = false;
+        }
+        
+        // Validar detalles
+        if (finalJSON.detalles && finalJSON.detalles.length > 250) {
+            errors.push('Los detalles no deben exceder 250 caracteres');
+            isValid = false;
+        }
+        
+        // Validar unidades
+        if (!finalJSON.unidades || parseInt(finalJSON.unidades) < 0) {
+            errors.push('Las unidades deben ser un número positivo');
+            isValid = false;
+        }
+
+        // Si hay errores, mostrarlos y no enviar
+        if (!isValid) {
+            alert('Errores en el formulario:\n\n' + errors.join('\n'));
+            console.log('Formulario tiene errores, no se enviará');
+            return;
+        }
+
+        // Usar imagen por defecto si no se proporciona una
+        if (!finalJSON.imagen || finalJSON.imagen.trim() === '' || finalJSON.imagen === 'img/default.png') {
+            finalJSON.imagen = 'img/imagen.png';
+        }
     // SE OBTIENE EL STRING DEL JSON FINAL
     productoJsonString = JSON.stringify(finalJSON,null,2);
 
