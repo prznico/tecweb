@@ -23,6 +23,34 @@
         }
 		$conexion->close();
     } 
+
+    // SE VERIFICA HABER RECIBIDO LA BUSQUEDA
+    elseif( isset($_POST['search']) ) {
+        $search = $_POST['search'];
+        
+        // SE PREPARA LA CONSULTA CON BÚSQUEDA EN MÚLTIPLES CAMPOS
+        $sql = "SELECT * FROM productos 
+                WHERE nombre LIKE '%{$search}%' 
+                   OR marca LIKE '%{$search}%' 
+                   OR detalles LIKE '%{$search}%'";
+        
+        // SE REALIZA LA QUERY DE BÚSQUEDA
+        if ( $result = $conexion->query($sql) ) {
+            // SE OBTIENEN LOS RESULTADOS
+            while($row = $result->fetch_array(MYSQLI_ASSOC)) {
+                $product = array();
+                // SE CODIFICAN A UTF-8 LOS DATOS
+                foreach($row as $key => $value) {
+                    $product[$key] = utf8_encode($value);
+                }
+                $data[] = $product;
+            }
+			$result->free();
+		} else {
+            die('Query Error: '.mysqli_error($conexion));
+        }
+		$conexion->close();
+    }
     
     // SE HACE LA CONVERSIÓN DE ARRAY A JSON
     echo json_encode($data, JSON_PRETTY_PRINT);
