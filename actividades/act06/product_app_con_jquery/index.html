@@ -5,7 +5,25 @@
     <title>ProductApp</title>
     <!-- BOOTSTRAP 4  -->
     <link rel="stylesheet" href="https://bootswatch.com/4/superhero/bootstrap.min.css">
-    
+     <style>
+      .status-message {
+        font-size: 0.8rem;
+        margin-top: 5px;
+        display: none;
+      }
+      .status-success {
+        color: #28a745;
+      }
+      .status-error {
+        color: #dc3545;
+      }
+      .is-invalid {
+        border-color: #dc3545;
+      }
+      .is-valid {
+        border-color: #28a745;
+      }
+    </style>
   </head>
   <body onload="init()">
 
@@ -33,13 +51,53 @@
               <!-- FORMULARIO PARA AGREGAR PRODUCTO -->
               <form id="product-form">
                 <div class="form-group">
-                  <input class="form-control" type="text" id="name" placeholder="Nombre de producto">
+                  <input class="form-control" type="text" id="name" placeholder="Nombre de producto" required>
+                  <div id="name-status" class="status-message"></div>
                 </div>
-                <div class="form-group"> 
-                  <textarea class="form-control" id="description" cols="30" rows="10" placeholder="JSON de producto"></textarea> 
-                </div> 
+                
+                <div class="form-group">
+                  <select class="form-control" id="marca" required>
+                    <option value="">Selecciona una marca</option>
+                    <option value="Dior">Dior</option>
+                    <option value="Guess">Guess</option>
+                    <option value="Dolce & Gabbana">Dolce & Gabbana</option>
+                    <option value="YSL">YSL</option>
+                    <option value="Gucci">Gucci</option>
+                    <option value="Chanel">Chanel</option>
+                    <option value="Versace">Versace</option>
+                    <option value="Prada">Prada</option>
+                    <option value="Calvin Klein">Calvin Klein</option>
+                  </select>
+                  <div id="marca-status" class="status-message"></div>
+                </div>
+                
+                <div class="form-group">
+                  <input class="form-control" type="text" id="modelo" placeholder="Modelo (solo letras y números)" required>
+                  <div id="modelo-status" class="status-message"></div>
+                </div>
+                
+                <div class="form-group">
+                  <input class="form-control" type="number" id="precio" placeholder="Precio (mínimo 100)" step="0.01" min="100" required>
+                  <div id="precio-status" class="status-message"></div>
+                </div>
+                
+                <div class="form-group">
+                  <textarea class="form-control" id="detalles" placeholder="Detalles (máximo 250 caracteres)" rows="3"></textarea>
+                  <div id="detalles-status" class="status-message"></div>
+                </div>
+                
+                <div class="form-group">
+                  <input class="form-control" type="number" id="unidades" placeholder="Unidades (mínimo 0)" min="0" required>
+                  <div id="unidades-status" class="status-message"></div>
+                </div>
+                
+                <div class="form-group">
+                  <input class="form-control" type="text" id="imagen" placeholder="URL de la imagen" value="img/default.png">
+                  <div id="imagen-status" class="status-message"></div>
+                </div>
+                
                 <input type="hidden" id="productId">
-                <button class="btn btn-primary btn-block text-center" type="submit">
+                <button class="btn btn-primary btn-block text-center" type="submit" id="submit-btn">
                   Agregar Producto
                 </button>
               </form>
