@@ -76,18 +76,30 @@ class Products extends DataBase{
         if ( $result = $this->conexion->query("SELECT * FROM productos WHERE eliminado = 0") ) {
             $rows = $result->fetch_all(MYSQLI_ASSOC);
 
-            if(!is_null($rows)) {
+            if(!empty($rows)) {
+                // SIEMPRE devolver un array de productos
+                $this->response = array();
                 foreach($rows as $num => $row) {
-                    foreach($row as $key => $value) {
-                        $this->response[$num][$key] = utf8_encode($value);
-                    }
+                    $this->response[] = array(
+                        'id' => $row['id'],
+                        'nombre' => $row['nombre'],
+                        'marca' => $row['marca'],
+                        'modelo' => $row['modelo'],
+                        'precio' => $row['precio'],
+                        'detalles' => $row['detalles'],
+                        'unidades' => $row['unidades'],
+                        'imagen' => $row['imagen']
+                    );
                 }
+            } else {
+                // Cuando no hay resultados, devolver array vacío
+                $this->response = array();
             }
             $result->free();
         } else {
             $this->response = array(
                 'status' => 'error',
-                'message' => 'Query Error: '.mysqli_error($this->conexion)
+                'message' => 'Error al obtener productos'
             );
         }
     }
@@ -95,26 +107,50 @@ class Products extends DataBase{
     public function search($producto){
         $this->response = array();
         
-        if( isset($producto['search']) ) {
-            $search = $producto['search'];
-            $sql = "SELECT * FROM productos WHERE (id = '{$search}' OR nombre LIKE '%{$search}%' OR marca LIKE '%{$search}%' OR detalles LIKE '%{$search}%') AND eliminado = 0";
+        if( isset($producto['search']) && !empty($producto['search']) ) {
+            $search = $this->conexion->real_escape_string($producto['search']);
+            
+            $sql = "SELECT * FROM productos WHERE 
+                    (id = '$search' OR 
+                    nombre LIKE '%$search%' OR 
+                    marca LIKE '%$search%' OR 
+                    detalles LIKE '%$search%') 
+                    AND eliminado = 0";
+            
             if ( $result = $this->conexion->query($sql) ) {
                 $rows = $result->fetch_all(MYSQLI_ASSOC);
 
-                if(!is_null($rows)) {
+                if(!empty($rows)) {
+                    // SIEMPRE devolver un array de productos
+                    $this->response = array();
                     foreach($rows as $num => $row) {
-                        foreach($row as $key => $value) {
-                            $this->response[$num][$key] = utf8_encode($value);
-                        }
+                        $this->response[] = array(
+                            'id' => $row['id'],
+                            'nombre' => $row['nombre'],
+                            'marca' => $row['marca'],
+                            'modelo' => $row['modelo'],
+                            'precio' => $row['precio'],
+                            'detalles' => $row['detalles'],
+                            'unidades' => $row['unidades'],
+                            'imagen' => $row['imagen']
+                        );
                     }
+                } else {
+                    // Cuando no hay resultados, devolver array vacío
+                    $this->response = array();
                 }
                 $result->free();
             } else {
                 $this->response = array(
                     'status' => 'error',
-                    'message' => 'Query Error: '.mysqli_error($this->conexion)
+                    'message' => 'Error en la búsqueda'
                 );
             }
+        } else {
+            $this->response = array(
+                'status' => 'error', 
+                'message' => 'Término de búsqueda no proporcionado'
+            );
         }
     }
 
@@ -152,30 +188,39 @@ class Products extends DataBase{
         }
     }
 
-    public function singleByName($name){
+public function singleByName($name){
+    $this->response = array();
+    
+    if (empty($name)) {
         $this->response = array();
-        
-        $sql = "SELECT * FROM productos WHERE nombre = '{$name}' AND eliminado = 0";
-        if ( $result = $this->conexion->query($sql) ) {
-            $rows = $result->fetch_all(MYSQLI_ASSOC);
-
-            if(!is_null($rows) && count($rows) > 0) {
-                foreach($rows[0] as $key => $value) {
-                    $this->response[$key] = utf8_encode($value);
-                }
-            } else {
-                $this->response = array(
-                    'status' => 'error',
-                    'message' => 'Producto no encontrado'
-                );
-            }
-            $result->free();
-        } else {
-            $this->response = array(
-                'status' => 'error',
-                'message' => 'Query Error: '.mysqli_error($this->conexion)
+        return;
+    }
+    
+    $sql = "SELECT * FROM productos WHERE nombre = '{$name}' AND eliminado = 0";
+    $result = $this->conexion->query($sql);
+    
+    if ($result && $result->num_rows > 0) {
+        // Si encuentra productos, devolver array con los productos encontrados
+        $rows = $result->fetch_all(MYSQLI_ASSOC);
+        $this->response = array();
+        foreach($rows as $row) {
+            $this->response[] = array(
+                'id' => $row['id'],
+                'nombre' => $row['nombre'],
+                'marca' => $row['marca'],
+                'modelo' => $row['modelo'],
+                'precio' => $row['precio'],
+                'detalles' => $row['detalles'],
+                'unidades' => $row['unidades'],
+                'imagen' => $row['imagen']
             );
         }
+        } else {
+            // Si no encuentra productos, devolver array vacío
+            $this->response = array();
+        }
+        
+        if ($result) $result->free();
     }
 
     public function getData(){

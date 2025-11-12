@@ -1,31 +1,15 @@
 <?php
-    include_once __DIR__.'/database.php';
-    
-    // SE CREA EL ARREGLO QUE SE VA A DEVOLVER EN FORMA DE JSON
-    $data = array();
+    namespace MyAPI;
+    require_once __DIR__ . '/myapi/Products.php';    
 
-    if(isset($_POST['id'])){
-        $id = $_POST['id'];
-        $sql = "SELECT * FROM productos WHERE id = $id";
-        if ( $result = $conexion->query($sql) ) {
-            // SE OBTIENEN LOS RESULTADOS
-            $rows = $result->fetch_all(MYSQLI_ASSOC);
+    $products = new Products();
 
-            if(!is_null($rows)) {
-                // SE CODIFICAN A UTF-8 LOS DATOS Y SE MAPEAN AL ARREGLO DE RESPUESTA
-                foreach($rows as $num => $row) {
-                    unset($row['eliminado']);
-                    foreach($row as $key => $value) {
-                        $data[$num][$key] = utf8_encode($value);
-                    }
-                }
-            }
-            $result->free();
-        } else {
-            die('Query Error: '.mysqli_error($conexion));
-        }
-        $conexion->close();
-    }
-    // SE HACE LA CONVERSIÓN DE ARRAY A JSON
-    echo json_encode($data[0], JSON_PRETTY_PRINT);
+    // Los datos vienen como POST normal  
+    $id = $_POST['id'] ?? '';
+
+    // Crear el array que espera el método single
+    $producto = array('id' => $id);
+
+    $products->single($producto);
+    echo $products->getData();
 ?>
