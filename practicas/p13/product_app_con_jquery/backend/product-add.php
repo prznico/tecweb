@@ -1,14 +1,14 @@
 <?php
     namespace MyAPI;
 
-    require_once __DIR__ . '/myapi/Products.php';    
+    require_once __DIR__ . '/../backend/vendor/autoload.php';
     
-    $products = new Products();
+    use MyAPI\Create\Create;
+    
+    $products = new Create('marketzone');
     //leer json y convertirlo a objeto php
     $json = file_get_contents('php://input');
     $producto = json_decode($json);
-
-    //ejecutar add y devolver respuesta
     $products->add($producto);
     echo $products->getData();
 ?>

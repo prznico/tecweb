@@ -18,5 +18,9 @@ abstract class DataBase
             die('¡Base de datos NO conectada!');
         }
     }
+
+    public function getData(){
+        return $this->data;
+    }
 }
 ?>

@@ -1,15 +1,8 @@
 <?php
-    namespace MyAPI;
-    require_once __DIR__ . '/myapi/Products.php';    
+use MyAPI\Read\Read;
+    require_once __DIR__ . '/../backend/vendor/autoload.php';
 
-    $products = new Products();
-
-    // Los datos vienen como POST normal  
-    $id = $_POST['id'] ?? '';
-
-    // Crear el array que espera el método single
-    $producto = array('id' => $id);
-
-    $products->single($producto);
+    $products = new Read('marketzone');
+    $products->single($_POST);
     echo $products->getData();
 ?>

@@ -1,15 +1,11 @@
+
 <?php
-    namespace MyAPI;
-    require_once __DIR__ . '/myapi/Products.php';    
+    use MyAPI\Delete\Delete;
 
-    $products = new Products();
+    require_once __DIR__ . '/../backend/vendor/autoload.php';
 
-    // Los datos vienen como POST normal
-    $id = $_POST['id'] ?? '';
-
-    // Crear el array que espera el método delete
-    $producto = array('id' => $id);
-
-    $products->delete($producto);
+    $products = new Delete('marketzone');
+    $products->delete($_POST);
     echo $products->getData();
+
 ?>
