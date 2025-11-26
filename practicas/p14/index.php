@@ -30,6 +30,17 @@ $app->post('/pruebapost', function ($request, $response, $args){
     $response->getBody()->write("Valores: ". $val1 ." ".$val2);
     return $response;
 });
+
+// JSON
+$app->get("/testjson", function($request, $response, $args){
+    $data[0]["nombre"] = "Himmel";
+    $data[0]["apellido"] = "Blue Sky";
+    $data[1]["nombre"] = "Frieren";
+    $data[1]["apellido"] = "White Snow";
+    $response->getBody()->write(json_encode($data, JSON_PRETTY_PRINT));
+    return $response;
+});
+
 $app->run();
 
 ?>
