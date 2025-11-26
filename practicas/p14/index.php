@@ -9,9 +9,15 @@ require 'vendor/autoload.php';
 $app = AppFactory::create(); 
 $app->setBasePath("/tecweb/practicas/p14");
 
-
+  // GET Hola Mundo
 $app->get('/', function ($request, $response, $args) {
     $response->getBody()->write("Hello Mundo");
+    return $response;
+});
+
+// GET PASO DE PARÁMETROS
+$app->get('/hola[/{nombre}]', function ($request, $response, $args) {
+    $response->getBody()->write("Hola, ".$args["nombre"]);
     return $response;
 });
 
